@@ -1,0 +1,40 @@
+«m:# »«x:comment1
+»«:caddyfile-label-face:label1» «:caddyfile-label-face://label2», «:caddyfile-label-face:http://label3:1234/path1»,
+«:caddyfile-label-face:label4_»«:caddyfile-variable-face:{%FOO%}», «m:# »«x:comment2
+»«:caddyfile-label-face:label5-»«:caddyfile-variable-face:{$BAR}» «:caddyfile-label-face:https://label6» {  «m:# »«x:comment3
+»	«m:# »«x:comment4
+»	«:caddyfile-directive-face:dir1» «m:# »«x:comment5
+»	«:caddyfile-directive-face:dir2» arg1 «s:"str1"» arg2
+	«:caddyfile-directive-face:dir3» arg3 «s:"str2»«:caddyfile-variable-face:{var1}»«s:"» arg4 «:caddyfile-variable-face:{var2}»
+	«:caddyfile-directive-face:dir4» arg5«:caddyfile-variable-face:{var3}»arg6
+«:caddyfile-directive-face:
+»	«:caddyfile-directive-face:dir5» {
+		«:caddyfile-subdirective-face:subdir1»
+		«:caddyfile-subdirective-face:subdir2» arg7 «s:"str3"» arg8
+		«:caddyfile-subdirective-face:subdir3» arg9 «s:"str4»«:caddyfile-variable-face:{var4}»«s:"» arg10 «:caddyfile-variable-face:{var-5}» «s:"{not var}"»
+		«:caddyfile-subdirective-face:subdir4» arg11«:caddyfile-variable-face:{var6}»arg12
+	}
+«:caddyfile-directive-face:
+»	«:caddyfile-directive-face:dir6» arg13 «s:"str5"» «:caddyfile-variable-face:{var7}» {
+		«:caddyfile-subdirective-face:subdir5» «:caddyfile-variable-face:{var8}» arg14 /?«:caddyfile-variable-face:{var9}»&«:caddyfile-variable-face:{var10}»
+		«:caddyfile-subdirective-face:/path2/»
+		«:caddyfile-subdirective-face:x-subdir6» «s:"}"»
+	}
+«:caddyfile-directive-face:
+»	«:caddyfile-directive-face:dir7» arg14 «s:"»«:caddyfile-variable-face:{var11}»«s: »«:caddyfile-variable-face:{>var12}»«s: »«:caddyfile-variable-face:{<var13}»«s: str6"»
+«:caddyfile-directive-face:
+»	«:caddyfile-directive-face:dir8» {
+		«:caddyfile-subdirective-face:subdir7» ^/foo/(bar|baz)/(.+?)(\/?)(\/?)$
+		«:caddyfile-subdirective-face:subdir8» /path3/«:caddyfile-variable-face:{1}»/«:caddyfile-variable-face:{2}»
+	}
+«:caddyfile-directive-face:
+»	«m:# »«x:comment6 "str7" {var14}
+»}
+
+«:caddyfile-label-face:(snippet1)» {
+	«:caddyfile-directive-face:dir9»
+}
+
+«:caddyfile-label-face:label7/path4/»«:caddyfile-variable-face:{var15}»«:caddyfile-label-face:/path5» {
+	«:caddyfile-directive-face:import» snippet1
+}

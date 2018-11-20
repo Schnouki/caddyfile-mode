@@ -1,0 +1,40 @@
+# comment1
+label1 //label2, http://label3:1234/path1,
+label4_{%FOO%}, # comment2
+label5-{$BAR} https://label6 {  # comment3
+	# comment4
+	dir1 # comment5
+	dir2 arg1 "str1" arg2
+	dir3 arg3 "str2{var1}" arg4 {var2}
+	dir4 arg5{var3}arg6
+
+	dir5 {
+		subdir1
+		subdir2 arg7 "str3" arg8
+		subdir3 arg9 "str4{var4}" arg10 {var-5} "{not var}"
+		subdir4 arg11{var6}arg12
+	}
+
+	dir6 arg13 "str5" {var7} {
+		subdir5 {var8} arg14 /?{var9}&{var10}
+		/path2/
+		x-subdir6 "}"
+	}
+
+	dir7 arg14 "{var11} {>var12} {<var13} str6"
+
+	dir8 {
+		subdir7 ^/foo/(bar|baz)/(.+?)(\/?)(\/?)$
+		subdir8 /path3/{1}/{2}
+	}
+
+	# comment6 "str7" {var14}
+}
+
+(snippet1) {
+	dir9
+}
+
+label7/path4/{var15}/path5 {
+	import snippet1
+}
