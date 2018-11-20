@@ -5,7 +5,7 @@
 ;; Author: Thomas Jost <schnouki@schnouki.net>
 ;; Maintainer: Thomas Jost <schnouki@schnouki.net>
 ;; Created: November 18, 2018
-;; Version: 0.1
+;; Version: 0.2-git
 ;; Keywords: Caddy
 ;; URL: https://github.com/Schnouki/caddyfile-mode/
 
