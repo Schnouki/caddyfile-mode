@@ -1,6 +1,6 @@
 # Caddyfile Mode 0.1
 
-*Under development*
+*2018-11-20*
 
 Initial release of caddyfile-mode. This version provides basic syntax
 highlighting and indentation for Caddyfiles.
