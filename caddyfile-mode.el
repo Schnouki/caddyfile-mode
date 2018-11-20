@@ -6,7 +6,8 @@
 ;; Maintainer: Thomas Jost <schnouki@schnouki.net>
 ;; Created: November 18, 2018
 ;; Version: 0.2-git
-;; Keywords: Caddy
+;; Package-Requires: ((emacs "24.3"))
+;; Keywords: languages
 ;; URL: https://github.com/Schnouki/caddyfile-mode/
 
 ;; This file is not part of GNU Emacs.
@@ -31,7 +32,6 @@
 
 ;;; Code:
 
-(require 'dash)
 (require 'font-lock)
 (require 'rx)
 
