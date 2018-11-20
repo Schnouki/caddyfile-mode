@@ -1,14 +1,18 @@
 CASK ?= cask
 
-all: build
+all: caddyfile-mode.elc
 
-.PHONY: build clean test
+.PHONY: clean test
 
-build:
+.cask/.ok: Cask
+	$(CASK) install
+	touch .cask/.ok
+
+caddyfile-mode.elc: .cask/.ok caddyfile-mode.el
 	$(CASK) build
 
 clean:
 	$(CASK) clean-elc
 
-test:
+test: caddyfile-mode.elc
 	$(CASK) exec ert-runner --reporter ert+duration
