@@ -1,4 +1,4 @@
-# Emacs Caddyfile Mode
+# Emacs Caddyfile Mode [![Travis CI Build Status][travis-badge]][travis-link]
 
 caddyfile-mode is a [Emacs][] major mode for editing [Caddy][] configuration
 files, a.k.a Caddyfiles.
@@ -73,3 +73,5 @@ Emacs 25 and later. If you find any bugs in caddyfile-mode, please open a ticket
 [issue tracker]: https://github.com/Schnouki/caddyfile-mode/issues
 [latest version]: https://github.com/Schnouki/caddyfile-mode/blob/master/caddyfile-mode.el
 [repo]: https://github.com/Schnouki/caddyfile-mode
+[travis-badge]: https://api.travis-ci.com/Schnouki/caddyfile-mode.svg?branch=master
+[travis-link]: https://travis-ci.com/Schnouki/caddyfile-mode
