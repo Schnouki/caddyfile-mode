@@ -1,6 +1,8 @@
 # Caddyfile Mode 0.2
 
-*Under development*
+*2018-11-20*
+
+Fix some packaging issues.
 
 
 # Caddyfile Mode 0.1

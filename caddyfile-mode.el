@@ -5,7 +5,7 @@
 ;; Author: Thomas Jost <schnouki@schnouki.net>
 ;; Maintainer: Thomas Jost <schnouki@schnouki.net>
 ;; Created: November 18, 2018
-;; Version: 0.2-git
+;; Version: 0.2
 ;; Package-Requires: ((emacs "24.3"))
 ;; Keywords: languages
 ;; URL: https://github.com/Schnouki/caddyfile-mode/
