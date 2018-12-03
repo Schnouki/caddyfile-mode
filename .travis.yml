@@ -19,5 +19,4 @@ install:
   - cask --version
 
 script:
-  - make
-  - make test
+  - make build lint test
