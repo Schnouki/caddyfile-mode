@@ -12,7 +12,8 @@
 (faceup-defexplainer caddyfile-font-lock-test-file)
 
 (ert-deftest caddyfile-font-lock-test ()
-  (should (caddyfile-font-lock-test-file "Caddyfile1")))
+  (should (caddyfile-font-lock-test-file "Caddyfile1"))
+  (should (caddyfile-font-lock-test-file "Caddyfile2")))
 
 (defun caddyfile-indent-test-file (file)
   (with-temp-buffer
@@ -32,6 +33,7 @@
 		     orig-content)))))
 
 (ert-deftest caddyfile-indent-test ()
-  (caddyfile-indent-test-file "Caddyfile1"))
+  (caddyfile-indent-test-file "Caddyfile1")
+  (caddyfile-indent-test-file "Caddyfile2"))
 
 ;;; caddyfile-mode-test.el ends here

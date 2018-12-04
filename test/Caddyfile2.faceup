@@ -1,0 +1,9 @@
+«m:# »«x:comment
+»«:caddyfile-label-face:example.com» «:caddyfile-label-face:example.net»,
+«:caddyfile-label-face:example.org»
+«:caddyfile-directive-face:
+root» /www/example.com
+«:caddyfile-directive-face:proxy» /blog 127.0.0.1:9000 {
+	«:caddyfile-subdirective-face:without» /blog
+	«:caddyfile-subdirective-face:transparent»
+}

@@ -6,7 +6,7 @@
 ;; Maintainer: Thomas Jost <schnouki@schnouki.net>
 ;; Created: November 18, 2018
 ;; Version: 0.3-git
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "24.3") (loop "1.3"))
 ;; Keywords: languages
 ;; URL: https://github.com/Schnouki/caddyfile-mode/
 
@@ -33,6 +33,7 @@
 ;;; Code:
 
 (require 'font-lock)
+(require 'loop)
 (require 'rx)
 
 
@@ -56,6 +57,11 @@ Used to compute the block level, not for font locking.")
   (rx bol (* blank) "}" (* blank) eol)
   "Regular expression for a block end line.
 Used to compute the block level, not for font locking.")
+
+(defconst caddyfile--regexp-last-line-char
+  (rx (group (? nonl)) (* space) (? "#" (* nonl)) eol)
+  "Regular expression for the last useful char in a line.
+Used to detect 'simple' Caddyfiles, not for font locking.")
 
 (defconst caddyfile--regexp-label
   (rx (+ (or (not (any space "{}(),\n"))
@@ -108,6 +114,24 @@ Used to compute the block level, not for font locking.")
   "Font face for Caddyfile variables."
   :group 'caddyfile-faces)
 
+(defun caddyfile--is-simple ()
+  "Check if a Caddyfile is 'simple', meaning it only has 1 list of labels.
+If it *is* simple, this returns the position of the end of the
+list of labels. Otherwise, it returns nil."
+  (save-match-data
+    (loop-for-each-line
+      (re-search-forward caddyfile--regexp-last-line-char)
+      (let ((last-char (match-string 1)))
+	;; If the last char is "{", it's the beginning of a block: not a simple
+	;; Caddyfile!
+	(when (string= last-char "{")
+	  (loop-return nil))
+	;; Only continue if the line ends with an empty char (empty line or
+	;; comment) or ",". Otherwise it *is* a simple Caddyfile!
+	(unless (or (string= last-char "")
+		    (string= last-char ","))
+	  (loop-return (point)))))))
+
 (defun caddyfile--match-at-block-level (level regexp last)
   "Match REGEXP at nesting level LEVEL.
 LAST is a buffer position that bounds the search."
@@ -119,17 +143,32 @@ LAST is a buffer position that bounds the search."
 (defun caddyfile--match-label (last)
   "Match a Caddyfile label.
 LAST is a buffer position that bounds the search."
-  (caddyfile--match-at-block-level 0 caddyfile--regexp-label last))
+  (let* ((simple (caddyfile--is-simple))
+	 (label-last (if simple (min last simple)
+		       last)))
+    (caddyfile--match-at-block-level 0 caddyfile--regexp-label label-last)))
 
 (defun caddyfile--match-directive (last)
   "Match a Caddyfile directive.
 LAST is a buffer position that bounds the search."
-  (caddyfile--match-at-block-level 1 caddyfile--regexp-directive last))
+  (let* ((simple (caddyfile--is-simple))
+	 (level (if simple 0 1)))
+    (when (and simple
+	       (> last simple)
+	       (< (point) simple))
+      (goto-char simple))
+    (caddyfile--match-at-block-level level caddyfile--regexp-directive last)))
 
 (defun caddyfile--match-subdirective (last)
   "Match a Caddyfile subdirective.
 LAST is a buffer position that bounds the search."
-  (caddyfile--match-at-block-level 2 caddyfile--regexp-directive last))
+  (let* ((simple (caddyfile--is-simple))
+	 (level (if simple 1 2)))
+    (when (and simple
+	       (> last simple)
+	       (< (point) simple))
+      (goto-char simple))
+    (caddyfile--match-at-block-level level caddyfile--regexp-directive last)))
 
 (defun caddyfile--match-variable (last)
   "Match a Caddyfile variable.

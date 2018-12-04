@@ -1,0 +1,9 @@
+# comment
+example.com example.net,
+example.org
+
+root /www/example.com
+proxy /blog 127.0.0.1:9000 {
+	without /blog
+	transparent
+}
