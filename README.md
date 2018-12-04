@@ -5,7 +5,8 @@ files, a.k.a Caddyfiles.
 
 caddyfile-mode is free software, licensed under the GNU GPL, version 3 or later.
 
-![Screenshot](img/screenshot.png)
+![Screenshot](img/screenshot1.png)
+![Screenshot](img/screenshot2.png)
 
 ## Installation
 
