@@ -226,10 +226,10 @@ LAST is a buffer position that bounds the search."
   (setq-local comment-column 0)
   (setq-local comment-use-syntax t)
   ;; Font lock
-  (setq-local font-lock-defaults '(caddyfile-mode-font-lock-keywords))
+  (setq font-lock-defaults '(caddyfile-mode-font-lock-keywords))
   ;; Indentation
-  (setq-local tab-width 8)
-  (setq-local indent-tabs-mode t)
+  (setq tab-width 8
+	indent-tabs-mode t)
   (setq-local indent-line-function 'caddyfile--indent-line))
 
 ;;;###autoload
