@@ -6,6 +6,7 @@
 - Add support for "simple" Caddyfiles, i.e. files that only contain a single
   list of labels. In that configuration, directives don't need to be nested in a
   top-level block, which makes editing a little bit easier.
+- Emacs 25 is now required.
 
 
 # Caddyfile Mode 0.2

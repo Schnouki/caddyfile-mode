@@ -6,7 +6,7 @@
 ;; Maintainer: Thomas Jost <schnouki@schnouki.net>
 ;; Created: November 18, 2018
 ;; Version: 0.3-git
-;; Package-Requires: ((emacs "24.3") (loop "1.3"))
+;; Package-Requires: ((emacs "25") (loop "1.3"))
 ;; Keywords: languages
 ;; URL: https://github.com/Schnouki/caddyfile-mode/
 
@@ -132,6 +132,17 @@ list of labels. Otherwise, it returns nil."
 		    (string= last-char ","))
 	  (loop-return (point)))))))
 
+(defvar-local caddyfile--buffer-is-simple -1
+  "Cached value for caddyfile--is-simple.")
+
+(defun caddyfile--check-if-simple (&rest args)
+  "Check if the Caddyfile is simple.
+Trigger fontification as needed. ARGS is ignored."
+  (let ((old-val caddyfile--buffer-is-simple))
+    (setq caddyfile--buffer-is-simple (caddyfile--is-simple))
+    (unless (eq (null caddyfile--buffer-is-simple) (null old-val))
+      (font-lock-flush))))
+
 (defun caddyfile--match-at-block-level (level regexp last)
   "Match REGEXP at nesting level LEVEL.
 LAST is a buffer position that bounds the search."
@@ -143,15 +154,16 @@ LAST is a buffer position that bounds the search."
 (defun caddyfile--match-label (last)
   "Match a Caddyfile label.
 LAST is a buffer position that bounds the search."
-  (let* ((simple (caddyfile--is-simple))
+  (let* ((simple caddyfile--buffer-is-simple)
 	 (label-last (if simple (min last simple)
 		       last)))
-    (caddyfile--match-at-block-level 0 caddyfile--regexp-label label-last)))
+    (when (>= label-last (point))
+      (caddyfile--match-at-block-level 0 caddyfile--regexp-label label-last))))
 
 (defun caddyfile--match-directive (last)
   "Match a Caddyfile directive.
 LAST is a buffer position that bounds the search."
-  (let* ((simple (caddyfile--is-simple))
+  (let* ((simple caddyfile--buffer-is-simple)
 	 (level (if simple 0 1)))
     (when (and simple
 	       (> last simple)
@@ -162,7 +174,7 @@ LAST is a buffer position that bounds the search."
 (defun caddyfile--match-subdirective (last)
   "Match a Caddyfile subdirective.
 LAST is a buffer position that bounds the search."
-  (let* ((simple (caddyfile--is-simple))
+  (let* ((simple caddyfile--buffer-is-simple)
 	 (level (if simple 1 2)))
     (when (and simple
 	       (> last simple)
@@ -227,6 +239,8 @@ LAST is a buffer position that bounds the search."
   (setq-local comment-use-syntax t)
   ;; Font lock
   (setq font-lock-defaults '(caddyfile-mode-font-lock-keywords))
+  (add-hook 'after-change-functions #'caddyfile--check-if-simple t t)
+  (caddyfile--check-if-simple)
   ;; Indentation
   (setq tab-width 8
 	indent-tabs-mode t)
