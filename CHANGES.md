@@ -2,6 +2,8 @@
 
 *Under development*
 
+- Now available on MELPA!
+
 
 # Caddyfile Mode 0.2
 

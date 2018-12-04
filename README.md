@@ -9,9 +9,34 @@ caddyfile-mode is free software, licensed under the GNU GPL, version 3 or later.
 
 ## Installation
 
-caddyfile-mode is not available in MELPA or any other repository *yet*.
+### MELPA
 
-**Direct download**
+The simplest way to install `caddyfile-mode` is to install the package from
+[MELPA][] using `package.el`. First configure `package.el` and the MELPA
+repository in your Emacs configuration file:
+
+```elisp
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+```
+
+Then install `caddyfile-mode`: <kbd>M-x package-install RET caddyfile-mode
+RET</kbd>.
+
+Alternatively, if you manage loading packages with [use-package][]
+then you can automatically install and configure `caddyfile-mode` by
+adding a declaration such as this one to your init file (as an
+example; adjust settings as desired):
+
+```elisp
+(use-package caddyfile-mode
+  :ensure t
+  :mode (("Caddyfile\\'" . caddyfile-mode)
+         ("caddy\\.conf\\'" . caddyfile-mode)))
+```
+
+### Direct download
 
 You can manually download and install caddyfile-mode. First, download the
 [latest version][] and save the file where Emacs can find it (i.e., a directory
@@ -25,7 +50,7 @@ by adding the following to your init file:
 (add-to-list 'auto-mode-alist '("caddy\\.conf\\'" . caddyfile-mode))
 ```
 
-**Development version**
+### Development version
 
 To follow or contribute to caddyfile--mode development, you can browse or clone
 the Git repository [on GitHub][repo]:
@@ -70,8 +95,10 @@ Emacs 25 and later. If you find any bugs in caddyfile-mode, please open a ticket
 
 [Caddy]: https://caddyserver.com/
 [Emacs]: https://www.gnu.org/software/emacs/
+[MELPA]: http://melpa.org/
 [issue tracker]: https://github.com/Schnouki/caddyfile-mode/issues
 [latest version]: https://github.com/Schnouki/caddyfile-mode/blob/master/caddyfile-mode.el
 [repo]: https://github.com/Schnouki/caddyfile-mode
 [travis-badge]: https://api.travis-ci.com/Schnouki/caddyfile-mode.svg?branch=master
 [travis-link]: https://travis-ci.com/Schnouki/caddyfile-mode
+[use-package]: https://github.com/jwiegley/use-package
