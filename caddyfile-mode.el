@@ -208,6 +208,8 @@ LAST is a buffer position that bounds the search."
     ;; Opening/closing braces
     (modify-syntax-entry ?\{ "(}" table)
     (modify-syntax-entry ?\} "){" table)
+    ;; Strings
+    (modify-syntax-entry ?` "\"" table)
     table)
   "Syntax table for Caddyfiles.")
 
